@@ -17,6 +17,7 @@ class Form extends React.Component {
       onInputChange,
       onSaveButtonClick,
     } = this.props;
+
     return (
       <section className="form">
         <label htmlFor="name">
