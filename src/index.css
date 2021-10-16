@@ -12,9 +12,31 @@ code {
     monospace;
 }
 
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 28px;
+  background-color: #036B52;
+  color: #FFFFFF;
+}
+
+.app {
+  display: flex;
+}
+
 .form {
   display: flex;
   flex-direction: column;
+  margin-right: 25px;
+}
+
+.card {
+  border: 3px solid yellowgreen;
 }
 
 label {
