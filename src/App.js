@@ -8,6 +8,8 @@ class App extends React.Component {
 
     this.onInputChange = this.onInputChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
+    this.hasTrunfo = this.hasTrunfo.bind(this);
+    this.createCheckbox = this.createCheckbox.bind(this);
 
     this.state = {
       cardName: '',
@@ -35,7 +37,7 @@ class App extends React.Component {
   onSaveButtonClick() {
     const { cardName, cardDescription,
       cardAttr1, cardAttr2, cardAttr3,
-      cardImage, cardRare, savedCards } = this.state;
+      cardImage, cardRare, cardTrunfo, savedCards } = this.state;
     const addCard = {
       cardName,
       cardDescription,
@@ -44,6 +46,7 @@ class App extends React.Component {
       cardAttr3,
       cardImage,
       cardRare,
+      cardTrunfo,
     };
     savedCards.push(addCard);
     this.setState({
@@ -54,7 +57,7 @@ class App extends React.Component {
       cardAttr3: '0',
       cardImage: '',
       cardRare: 'normal',
-    });
+    }, () => this.hasTrunfo());
   }
 
   buttonChange() {
@@ -81,12 +84,38 @@ class App extends React.Component {
     }
   }
 
+  hasTrunfo() {
+    const { savedCards } = this.state;
+    const verifyTrunfo = savedCards.some((card) => card.cardTrunfo);
+    this.setState({
+      hasTrunfo: verifyTrunfo,
+    });
+  }
+
+  createCheckbox() {
+    return (
+      <label htmlFor="checkbox">
+        Super Trybe Trunfo
+        <input
+          name="cardTrunfo"
+          checked={ cardTrunfo }
+          onChange={ onInputChange }
+          data-testid="trunfo-input"
+          id="checkbox"
+          type="checkbox"
+        />
+      </label>
+    );
+  }
+
   render() {
     return (
       <div>
         <header>Tryunfo</header>
         <section className="app">
           <Form
+            createCheckbox={ this.createCheckbox }
+            hasTrunfo={ this.hasTrunfo }
             onSaveButtonClick={ this.onSaveButtonClick }
             onInputChange={ this.onInputChange }
             { ...this.state }
