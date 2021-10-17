@@ -50,6 +50,8 @@ class Form extends React.Component {
             data-testid="attr1-input"
             type="number"
             id="attr1"
+            max="90"
+            min="0"
           />
         </label>
         <label htmlFor="attr2">
@@ -61,6 +63,8 @@ class Form extends React.Component {
             data-testid="attr2-input"
             type="number"
             id="attr2"
+            max="90"
+            min="0"
           />
         </label>
         <label htmlFor="attr3">
@@ -72,6 +76,8 @@ class Form extends React.Component {
             data-testid="attr3-input"
             type="number"
             id="attr3"
+            max="90"
+            min="0"
           />
         </label>
         <label htmlFor="img-input">
