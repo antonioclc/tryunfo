@@ -9,7 +9,7 @@ class App extends React.Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
     this.hasTrunfo = this.hasTrunfo.bind(this);
-    this.createCheckbox = this.createCheckbox.bind(this);
+    this.getCard = this.getCard.bind(this);
 
     this.state = {
       cardName: '',
@@ -60,6 +60,11 @@ class App extends React.Component {
     }, () => this.hasTrunfo());
   }
 
+  getCard() {
+    const { savedCards } = this.state;
+    return savedCards.map((card) => <Card key={ card.cardName } { ...card } />);
+  }
+
   buttonChange() {
     const { cardName, cardDescription,
       cardAttr1, cardAttr2, cardAttr3,
@@ -89,23 +94,7 @@ class App extends React.Component {
     const verifyTrunfo = savedCards.some((card) => card.cardTrunfo);
     this.setState({
       hasTrunfo: verifyTrunfo,
-    });
-  }
-
-  createCheckbox() {
-    return (
-      <label htmlFor="checkbox">
-        Super Trybe Trunfo
-        <input
-          name="cardTrunfo"
-          checked={ cardTrunfo }
-          onChange={ onInputChange }
-          data-testid="trunfo-input"
-          id="checkbox"
-          type="checkbox"
-        />
-      </label>
-    );
+    }, () => this.getCard);
   }
 
   render() {
@@ -121,6 +110,11 @@ class App extends React.Component {
             { ...this.state }
           />
           <Card onInputChange={ this.onInputChange } { ...this.state } />
+        </section>
+        <section>
+          {
+            this.getCard()
+          }
         </section>
       </div>
     );
