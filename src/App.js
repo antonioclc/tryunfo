@@ -67,7 +67,7 @@ class App extends React.Component {
   }
 
   getCard() {
-    const { savedCards, filterText, filterRare, filterTrunfo, cardTrunfo } = this.state;
+    const { savedCards, filterText, filterRare, filterTrunfo } = this.state;
     if (filterTrunfo) {
       const generateTrunfoCard = savedCards.filter((card) => card.cardTrunfo)
         .map((card) => (
