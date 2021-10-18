@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
+import Filters from './components/Filters';
 
 class App extends React.Component {
   constructor() {
@@ -24,6 +25,7 @@ class App extends React.Component {
       hasTrunfo: false,
       isSaveButtonDisabled: true,
       savedCards: [],
+      filterText: '',
     };
   }
 
@@ -63,8 +65,8 @@ class App extends React.Component {
   }
 
   getCard() {
-    const { savedCards } = this.state;
-    return savedCards.map((card) => (
+    const { savedCards, filterText } = this.state;
+    return savedCards.filter((card) => card.cardName.includes(filterText)).map((card) => (
       <div key={ card.cardName }>
         <Card key={ card.cardName } { ...card } />
         <button
@@ -133,6 +135,9 @@ class App extends React.Component {
             { ...this.state }
           />
           <Card onInputChange={ this.onInputChange } { ...this.state } />
+        </section>
+        <section>
+          <Filters onInputChange={ this.onInputChange } { ...this.state } />
         </section>
         <section>
           {
