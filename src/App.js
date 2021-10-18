@@ -26,6 +26,7 @@ class App extends React.Component {
       isSaveButtonDisabled: true,
       savedCards: [],
       filterText: '',
+      filterRare: 'todas',
     };
   }
 
@@ -65,8 +66,12 @@ class App extends React.Component {
   }
 
   getCard() {
-    const { savedCards, filterText } = this.state;
-    return savedCards.filter((card) => card.cardName.includes(filterText)).map((card) => (
+    const { savedCards, filterText, filterRare } = this.state;
+    let cardFilter = savedCards.filter((card) => card.cardName.includes(filterText));
+    if (filterRare !== 'todas') {
+      cardFilter = cardFilter.filter((card) => card.cardRare === filterRare);
+    }
+    const generateCardList = cardFilter.map((card) => (
       <div key={ card.cardName }>
         <Card key={ card.cardName } { ...card } />
         <button
@@ -78,6 +83,7 @@ class App extends React.Component {
         </button>
       </div>
     ));
+    return generateCardList;
   }
 
   deleteCard(event) {
@@ -139,7 +145,7 @@ class App extends React.Component {
         <section>
           <Filters onInputChange={ this.onInputChange } { ...this.state } />
         </section>
-        <section>
+        <section className="cardList">
           {
             this.getCard()
           }

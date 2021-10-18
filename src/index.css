@@ -44,7 +44,18 @@ header {
   justify-content: center;
   align-items: center;
   border: 3px solid yellowgreen;
-  width: 50%;
+  width: 200px
+}
+
+.cardList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filterList {
+  display: flex;
+  justify-content: space-around;
 }
 
 label {
