@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CheckTrunfo from './CheckTrunfo';
 
 class Form extends React.Component {
   render() {
@@ -11,7 +12,7 @@ class Form extends React.Component {
       cardAttr3,
       cardImage,
       cardRare,
-      cardTrunfo,
+      // cardTrunfo,
       hasTrunfo,
       isSaveButtonDisabled,
       onInputChange,
@@ -105,30 +106,9 @@ class Form extends React.Component {
             <option value="muito raro">muito raro</option>
           </select>
         </label>
-        {/* <label htmlFor="checkbox">
-          Super Trybe Trunfo
-          <input
-            name="cardTrunfo"
-            checked={ cardTrunfo }
-            onChange={ onInputChange }
-            data-testid="trunfo-input"
-            id="checkbox"
-            type="checkbox"
-          />
-        </label> */}
         { hasTrunfo
           ? <p>Você já tem um Super Trunfo em seu baralho</p>
-          : <label htmlFor="checkbox">
-            Super Trybe Trunfo
-            <input
-              name="cardTrunfo"
-              checked={ cardTrunfo }
-              onChange={ onInputChange }
-              data-testid="trunfo-input"
-              id="checkbox"
-              type="checkbox"
-            />
-          </label>}
+          : <CheckTrunfo { ... this.props } />}
         <button
           disabled={ isSaveButtonDisabled }
           onClick={ onSaveButtonClick }

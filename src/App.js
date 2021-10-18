@@ -10,6 +10,7 @@ class App extends React.Component {
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
     this.hasTrunfo = this.hasTrunfo.bind(this);
     this.getCard = this.getCard.bind(this);
+    this.deleteCard = this.deleteCard.bind(this);
 
     this.state = {
       cardName: '',
@@ -57,12 +58,43 @@ class App extends React.Component {
       cardAttr3: '0',
       cardImage: '',
       cardRare: 'normal',
+      cardTrunfo: false,
     }, () => this.hasTrunfo());
   }
 
   getCard() {
     const { savedCards } = this.state;
-    return savedCards.map((card) => <Card key={ card.cardName } { ...card } />);
+    return savedCards.map((card) => (
+      <div key={ card.cardName }>
+        <Card key={ card.cardName } { ...card } />
+        <button
+          data-testid="delete-button"
+          type="button"
+          onClick={ this.deleteCard }
+        >
+          Excluir
+        </button>
+      </div>
+    ));
+  }
+
+  deleteCard(event) {
+    const { savedCards } = this.state;
+    const cardElement = event.target.previousSibling;
+    const updateSavedCards = savedCards.filter(
+      (card) => card.cardName !== cardElement.id,
+    );
+    this.setState({
+      savedCards: updateSavedCards,
+    }, () => this.hasTrunfo());
+  }
+
+  hasTrunfo() {
+    const { savedCards } = this.state;
+    const verifyTrunfo = savedCards.some((card) => card.cardTrunfo);
+    this.setState({
+      hasTrunfo: verifyTrunfo,
+    }, () => this.getCard);
   }
 
   buttonChange() {
@@ -89,21 +121,12 @@ class App extends React.Component {
     }
   }
 
-  hasTrunfo() {
-    const { savedCards } = this.state;
-    const verifyTrunfo = savedCards.some((card) => card.cardTrunfo);
-    this.setState({
-      hasTrunfo: verifyTrunfo,
-    }, () => this.getCard);
-  }
-
   render() {
     return (
       <div>
         <header>Tryunfo</header>
         <section className="app">
           <Form
-            createCheckbox={ this.createCheckbox }
             hasTrunfo={ this.hasTrunfo }
             onSaveButtonClick={ this.onSaveButtonClick }
             onInputChange={ this.onInputChange }
