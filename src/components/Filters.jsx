@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class Filters extends React.Component {
   render() {
-    const { filterText, filterRare, onInputChange } = this.props;
+    const { filterText, filterRare, filterTrunfo, onInputChange } = this.props;
     return (
       <section className="filterList">
         <label htmlFor="filterByName">
@@ -32,6 +32,17 @@ class Filters extends React.Component {
             <option value="muito raro">muito raro</option>
           </select>
         </label>
+        <label htmlFor="checkboxFilter">
+          Super Trybe Trunfo
+          <input
+            name="filterTrunfo"
+            checked={ filterTrunfo }
+            onChange={ onInputChange }
+            data-testid="trunfo-filter"
+            id="checkboxFilter"
+            type="checkbox"
+          />
+        </label>
       </section>
     );
   }
@@ -40,6 +51,7 @@ class Filters extends React.Component {
 Filters.propTypes = {
   filterText: PropTypes.string.isRequired,
   filterRare: PropTypes.string.isRequired,
+  filterTrunfo: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
 };
 

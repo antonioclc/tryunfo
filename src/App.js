@@ -27,6 +27,7 @@ class App extends React.Component {
       savedCards: [],
       filterText: '',
       filterRare: 'todas',
+      filterTrunfo: false,
     };
   }
 
@@ -66,7 +67,23 @@ class App extends React.Component {
   }
 
   getCard() {
-    const { savedCards, filterText, filterRare } = this.state;
+    const { savedCards, filterText, filterRare, filterTrunfo, cardTrunfo } = this.state;
+    if (filterTrunfo) {
+      const generateTrunfoCard = savedCards.filter((card) => card.cardTrunfo)
+        .map((card) => (
+          <div key={ card.cardName }>
+            <Card key={ card.cardName } { ...card } />
+            <button
+              data-testid="delete-button"
+              type="button"
+              onClick={ this.deleteCard }
+            >
+              Excluir
+            </button>
+          </div>
+        ));
+      return generateTrunfoCard;
+    }
     let cardFilter = savedCards.filter((card) => card.cardName.includes(filterText));
     if (filterRare !== 'todas') {
       cardFilter = cardFilter.filter((card) => card.cardRare === filterRare);
